@@ -10,14 +10,30 @@ const { title, description } = Astro.props;
 <!doctype html>
 <html lang="fr">
   <head>
+    <script type="application/ld+json" is:inline>
+      {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Alex Berceaux",
+        "jobTitle": "Chargé de production",
+        "url": "https://www.alexberceaux.com"
+      }
+    </script>
     <meta charset="UTF-8" />
     <meta name="description" content={description} />
     <meta name="viewport" content="width=device-width" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
+    <meta name="robots" content="index, follow" />
+    <meta name="author" content="Alex Berceaux" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={Astro.url} />
+    <meta name="twitter:card" content="summary_large_image" />
   </head>
-  <body>
+  <body class="bg-neutral-100 font-nunito">
     <slot />
   </body>
 </html>

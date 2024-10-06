@@ -1,0 +1,37 @@
+---
+import { getVimeoThumbnail } from '../utils/vimeo';
+
+interface Video {
+  id: number;
+  url: string;
+  title: string;
+  client: string;
+  type: string;
+}
+
+interface Props {
+  video: Video;
+  index: number;
+}
+
+const { video, index } = Astro.props;
+const thumbnailUrl = await getVimeoThumbnail(video.url);
+---
+
+<button
+  type="button"
+  data-hs-overlay={`#video-modal-${video.id}`}
+  class={`video-button relative flex flex-col justify-end w-full rounded-3xl overflow-hidden ${
+    index === 0 || index === 7
+      ? 'md:col-span-2 md:row-span-2 h-64 md:h-full'
+      : 'md:col-span-1 md:row-span-1 h-64 md:h-72 lg:h-96'
+  }`}
+>
+  <div
+    class="absolute inset-0 z-20 flex flex-col justify-end items-start w-full p-6 md:p-8 bg-gradient-to-t from-black/70 to-transparent"
+  >
+    <h6 class="text-white text-lg font-semibold uppercase">{video.title}</h6>
+    <h6 class="text-white text-sm">{video.type}</h6>
+  </div>
+  <img src={thumbnailUrl} alt={video.title} class="absolute inset-0 w-full h-full object-cover" />
+</button>

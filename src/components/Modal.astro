@@ -1,0 +1,51 @@
+---
+interface Props {
+  id: number;
+  url: string;
+  title: string;
+  type: string;
+}
+
+const { id, url, title, type } = Astro.props;
+---
+
+<div
+  id={`video-modal-${id}`}
+  class="hs-overlay hidden fixed inset-0 z-[60] overflow-x-hidden overflow-y-auto bg-black bg-opacity-60 transition-opacity duration-300 pointer-events-none"
+  role="dialog"
+  tabindex="-1"
+  aria-labelledby={`hs-video-modal-label-${id}`}
+>
+  <div class="flex items-center justify-center min-h-svh p-4">
+    <div
+      class="bg-white rounded-xl shadow-2xl w-full max-w-7xl transform transition-all duration-300 scale-90 opacity-0 hs-overlay-open:scale-100 hs-overlay-open:opacity-100"
+    >
+      <div class="p-6">
+        <div class="flex justify-between items-center mb-2">
+          <h3 id={`hs-video-modal-label-${id}`} class="text-2xl font-bold text-gray-800">
+            {title}
+          </h3>
+          <button
+            type="button"
+            class="text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+            aria-label="Close"
+            data-hs-overlay={`#video-modal-${id}`}
+          >
+            <span class="sr-only">Fermer</span>
+            <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+            </svg>
+          </button>
+        </div>
+        <p class="text-gray-600 mb-4 italic">
+          {type}
+        </p>
+        <hr class="my-4 border-gray-200" />
+        <div class="aspect-video bg-gray-100 rounded-lg overflow-hidden">
+          <iframe src={url} class="w-full h-full" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen
+          ></iframe>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,5 +1,105 @@
 ---
-import Layout from '../layouts/Layout.astro';
+import Layout from '@/layouts/Layout.astro';
+import Hero from '@/components/Hero.astro';
+import Video from '@/components/Video.astro';
+import Contact from '@/components/Contact.astro';
+import Footer from '@/components/Footer.astro';
+import Modal from '@/components/Modal.astro';
+
+interface Video {
+  id: number;
+  url: string;
+  title: string;
+  client: string;
+  type: string;
+}
+
+const videos: Video[] = [
+  {
+    id: 1,
+    url: 'https://player.vimeo.com/video/639635624',
+    title: 'Projet 1',
+    client: 'Client 1',
+    type: 'Commercial',
+  },
+  {
+    id: 2,
+    url: 'https://player.vimeo.com/video/677792486',
+    title: 'Projet 2',
+    client: 'Client 2',
+    type: 'Commercial',
+  },
+  {
+    id: 3,
+    url: 'https://player.vimeo.com/video/640277204',
+    title: 'Projet 3',
+    client: 'Client 3',
+    type: 'Commercial',
+  },
+  {
+    id: 4,
+    url: 'https://player.vimeo.com/video/694553938',
+    title: 'Projet 2',
+    client: 'Client 2',
+    type: 'Commercial',
+  },
+  {
+    id: 5,
+    url: 'https://player.vimeo.com/video/639635624',
+    title: 'Projet 1',
+    client: 'Client 1',
+    type: 'Commercial',
+  },
+  {
+    id: 6,
+    url: 'https://player.vimeo.com/video/677792486',
+    title: 'Projet 2',
+    client: 'Client 2',
+    type: 'Commercial',
+  },
+  {
+    id: 7,
+    url: 'https://player.vimeo.com/video/640277204',
+    title: 'Projet 3',
+    client: 'Client 3',
+    type: 'Commercial',
+  },
+  {
+    id: 8,
+    url: 'https://player.vimeo.com/video/694553938',
+    title: 'Projet 2',
+    client: 'Client 2',
+    type: 'Commercial',
+  },
+  {
+    id: 9,
+    url: 'https://player.vimeo.com/video/639635624',
+    title: 'Projet 1',
+    client: 'Client 1',
+    type: 'Commercial',
+  },
+  {
+    id: 10,
+    url: 'https://player.vimeo.com/video/677792486',
+    title: 'Projet 2',
+    client: 'Client 2',
+    type: 'Commercial',
+  },
+  {
+    id: 11,
+    url: 'https://player.vimeo.com/video/640277204',
+    title: 'Projet 3',
+    client: 'Client 3',
+    type: 'Commercial',
+  },
+  {
+    id: 12,
+    url: 'https://player.vimeo.com/video/694553938',
+    title: 'Projet 2',
+    client: 'Client 2',
+    type: 'Commercial',
+  },
+];
 ---
 
 <Layout
@@ -7,6 +107,24 @@ import Layout from '../layouts/Layout.astro';
   description="Alex Berceaux est un chargé de production spécialisé dans la production de films et de séries. Basé à Paris, il travaille pour des clients de tous horizons."
 >
   <main>
-    <h1 class="text-3xl font-bold underline">Hello world!</h1>
+    <Hero />
+    <section class="flex flex-col flex-1 justify-center px-4 md:px-8">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-5">
+        {
+          videos.map((video, index) => (
+            <>
+              <Video video={video} index={index} />
+              <Modal id={video.id} url={video.url} title={video.title} type={video.type} />
+            </>
+          ))
+        }
+      </div>
+    </section>
   </main>
+  <Contact />
+  <Footer />
 </Layout>
+
+<script>
+  import '@preline/overlay/index.js';
+</script>
