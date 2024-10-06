@@ -11,7 +11,7 @@ const { id, url, title, type } = Astro.props;
 
 <div
   id={`video-modal-${id}`}
-  class="hs-overlay hidden fixed inset-0 z-[60] overflow-x-hidden overflow-y-auto bg-black bg-opacity-60 transition-opacity duration-300 pointer-events-none"
+  class="hs-overlay hidden fixed inset-0 z-[60] overflow-x-hidden overflow-y-auto bg-black bg-opacity-60 transition-opacity duration-300"
   role="dialog"
   tabindex="-1"
   aria-labelledby={`hs-video-modal-label-${id}`}
@@ -30,6 +30,7 @@ const { id, url, title, type } = Astro.props;
             class="text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
             aria-label="Close"
             data-hs-overlay={`#video-modal-${id}`}
+            data-button-id={id}
           >
             <span class="sr-only">Fermer</span>
             <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -42,10 +43,25 @@ const { id, url, title, type } = Astro.props;
         </p>
         <hr class="my-4 border-gray-200" />
         <div class="aspect-video bg-gray-100 rounded-lg overflow-hidden">
-          <iframe src={url} class="w-full h-full" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen
+          <iframe data-video-id={id} src={url} class="w-full h-full" allow="autoplay; fullscreen; picture-in-picture"
           ></iframe>
         </div>
       </div>
     </div>
   </div>
 </div>
+
+<script>
+  const buttons = document.querySelectorAll('button[data-button-id]') as NodeListOf<HTMLButtonElement>;
+
+  buttons.forEach((button) => {
+    const id = button.getAttribute('data-button-id');
+    const iframe = document.querySelector(`iframe[data-video-id="${id}"]`) as HTMLIFrameElement;
+
+    button.addEventListener('click', () => {
+      if (iframe) {
+        iframe.src = iframe.src;
+      }
+    });
+  });
+</script>
